@@ -28,6 +28,7 @@ export const authMiddleware = async (req, res, next) => {
     req.user = user;
     next();
   } catch (error) {
-    console.log();
+    console.log("Error in auth-Middleware Protected Route: ", error.message);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
