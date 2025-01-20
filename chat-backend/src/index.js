@@ -4,12 +4,11 @@ import dotenv from "dotenv";
 import { dbConnection } from "./lib/db.js";
 dotenv.config();
 const app = express();
-
+app.use(express.json());
 const port = 5001;
 app.use("/api/auth", authRouter);
 
-dbConnection().then(() => {
-  app.listen(port, () => {
-    console.log(`Server is running at port: ${port}`);
-  });
+app.listen(port, () => {
+  console.log(`Server is running at port: ${port}`);
+  dbConnection();
 });
