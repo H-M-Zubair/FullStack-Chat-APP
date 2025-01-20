@@ -8,3 +8,26 @@ export const validateAuth = (schema) => (req, res, next) => {
   }
   next();
 };
+
+export const authMiddleware = async (req, res, next) => {
+  try {
+    const token = req.cookies.jwt; //this "jwt" is the token name through which name i stored the token
+    if (!token) {
+      res.status(401).json({ message: "Unauthorized - No Token Provided" });
+    }
+    const decoded_details = await jwt.verify(token, process.env.JWT_KEY);
+    if (!decoded_details) {
+      return res.status(401).json({ message: "Unauthorized - Invalid Token" });
+    }
+    const user = await User.findById(decoded_details.userId).select(
+      "-password"
+    );
+    if (!user) {
+      return res.status(400).json({ message: "User not found" });
+    }
+    req.user = user;
+    next();
+  } catch (error) {
+    console.log();
+  }
+};
