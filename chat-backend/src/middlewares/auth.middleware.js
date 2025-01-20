@@ -1,5 +1,6 @@
 import joi from "joi";
 import User from "../models/user.model.js";
+import jwt from "jsonwebtoken";
 export const validateAuth = (schema) => (req, res, next) => {
   const { error } = schema.validate(req.body, { abortEarly: false });
   if (error) {

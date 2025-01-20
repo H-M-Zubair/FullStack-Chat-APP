@@ -3,7 +3,8 @@ import {
   signin,
   logout,
   signup,
-  updateUser,
+  updateProfile,
+  checkAuth,
 } from "../controllers/auth.controller.js";
 import {
   validateAuth,
@@ -15,5 +16,6 @@ const authRouter = Router();
 authRouter.post("/signup", validateAuth(authSchema), signup);
 authRouter.post("/signin", signin);
 authRouter.post("/logout", logout);
-authRouter.put("/update-user-data", authMiddleware, updateUser);
+authRouter.put("/update-user-data", authMiddleware, updateProfile);
+authRouter.get("/check-auth", authMiddleware, checkAuth);
 export default authRouter;
