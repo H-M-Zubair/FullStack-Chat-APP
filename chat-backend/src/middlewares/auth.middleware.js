@@ -14,7 +14,9 @@ export const authMiddleware = async (req, res, next) => {
   try {
     const token = req.cookies.jwt; //this "jwt" is the token name through with the name i stored the token in cookies
     if (!token) {
-      res.status(401).json({ message: "Unauthorized - No Token Provided" });
+      return res
+        .status(401)
+        .json({ message: "Unauthorized - No Token Provided" });
     }
     const decoded_details = await jwt.verify(token, process.env.JWT_KEY);
     if (!decoded_details) {
@@ -30,6 +32,6 @@ export const authMiddleware = async (req, res, next) => {
     next();
   } catch (error) {
     console.log("Error in auth-Middleware Protected Route: ", error.message);
-    res.status(500).json({ message: "Internal Server Error" });
+    return res.status(500).json({ message: "Internal Server Error" });
   }
 };
