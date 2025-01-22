@@ -16,4 +16,5 @@ messageRouter.get(
   authMiddleware,
   getMessagesByUserId
 );
+messageRouter.post("/send-message/:id", authMiddleware, sendMessage);
 export default messageRouter;

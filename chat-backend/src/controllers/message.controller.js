@@ -33,3 +33,28 @@ export const getMessagesByUserId = async (req, res) => {
     res.status(500).json({ message: "Server Error" });
   }
 };
+
+export const sendMessage = async (req, res) => {
+  try {
+    const senderId = req.user._id;
+    const receiverId = req.params;
+    const { image, text } = req.body;
+
+    let imageUrl;
+    if (image) {
+      const uploadImage = await cloudinary.uploader.upload(image);
+      imageUrl = uploadImage.secure_url;
+    }
+    const newMessage = new Message({
+      senderId,
+      receiverId,
+      text,
+      image: imageUrl,
+    });
+
+    return res.status(200).json(newMessage);
+  } catch (error) {
+    console.log("Error in sendMessage Controller: ", error.message);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
