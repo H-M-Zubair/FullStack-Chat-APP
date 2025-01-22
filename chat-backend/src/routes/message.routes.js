@@ -11,4 +11,9 @@ const messageRouter = Router();
 
 messageRouter.get("/get-sidebar-users", authMiddleware, getSidebarUsers);
 
+messageRouter.get(
+  "/get-messages-by-userId/:id",
+  authMiddleware,
+  getMessagesByUserId
+);
 export default messageRouter;
