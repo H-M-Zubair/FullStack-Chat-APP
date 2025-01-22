@@ -12,7 +12,7 @@ export const validateAuth = (schema) => (req, res, next) => {
 
 export const authMiddleware = async (req, res, next) => {
   try {
-    const token = req.cookies.jwt; //this "jwt" is the token name through which name i stored the token
+    const token = req.cookies.jwt; //this "jwt" is the token name through with the name i stored the token in cookies
     if (!token) {
       res.status(401).json({ message: "Unauthorized - No Token Provided" });
     }

@@ -1,4 +1,3 @@
-import { object, required } from "joi";
 import mongoose from "mongoose";
 
 const messageSchema = new mongoose.Schema(
