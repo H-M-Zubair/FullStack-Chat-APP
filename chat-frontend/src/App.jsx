@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { useAuthStore } from "./store/useAuthStore";
 // import { LoaderCircle } from "lucide-react";
 import { ProgressBar } from "react-loader-spinner";
+import { Toaster } from "react-hot-toast";
 export default function App() {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
   useEffect(() => {
@@ -55,6 +56,7 @@ export default function App() {
           element={authUser ? <Profile /> : <Navigate to="/login" />}
         />
       </Routes>
+      <Toaster />
     </>
   );
 }

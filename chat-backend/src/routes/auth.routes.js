@@ -16,6 +16,6 @@ const authRouter = Router();
 authRouter.post("/signup", validateAuth(authSchema), signup);
 authRouter.post("/signin", signin);
 authRouter.post("/logout", logout);
-authRouter.put("/update-user-data", authMiddleware, updateProfile);
+authRouter.put("/update-profile", authMiddleware, updateProfile);
 authRouter.get("/check-auth", authMiddleware, checkAuth);
 export default authRouter;
