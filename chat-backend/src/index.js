@@ -8,7 +8,7 @@ import cors from "cors";
 dotenv.config();
 const app = express();
 app.use(cookieParser());
-app.use(express.json({ limit: "5mb" }));
+app.use(express.json({ limit: "5mb" })); //to allow parsing limit 5mb by default it is 100KB
 
 const port = 5001;
 app.use(

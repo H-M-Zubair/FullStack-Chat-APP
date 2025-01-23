@@ -11,14 +11,16 @@ import { useAuthStore } from "./store/useAuthStore";
 // import { LoaderCircle } from "lucide-react";
 import { ProgressBar } from "react-loader-spinner";
 import { Toaster } from "react-hot-toast";
+import { useThemeStore } from "./store/useThemeStore";
 export default function App() {
+  const { theme } = useThemeStore();
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
   if (isCheckingAuth && !authUser)
     return (
-      <div className="min-h-screen flex justify-center items-center">
+      <div className="min-h-screen flex justify-center items-center ">
         {/* <LoaderCircle size={50} /> */}
         <ProgressBar
           visible={true}
@@ -33,7 +35,7 @@ export default function App() {
     );
   console.log(authUser);
   return (
-    <>
+    <div data-theme={theme}>
       <Navbar />
       <Routes>
         <Route
@@ -49,7 +51,7 @@ export default function App() {
           element={!authUser ? <Login /> : <Navigate to="/" />}
         />
         <Route
-          path="/setting"
+          path="/settings"
           element={authUser ? <Settings /> : <Navigate to="/login" />}
         />
         <Route
@@ -58,6 +60,6 @@ export default function App() {
         />
       </Routes>
       <Toaster />
-    </>
+    </div>
   );
 }
