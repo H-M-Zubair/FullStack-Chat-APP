@@ -31,6 +31,7 @@ export default function App() {
         />
       </div>
     );
+  console.log(authUser);
   return (
     <>
       <Navbar />
