@@ -5,8 +5,9 @@ import { dbConnection } from "./lib/db.js";
 import cookieParser from "cookie-parser";
 import messageRouter from "./routes/message.routes.js";
 import cors from "cors";
+import { server, app } from "./lib/socket.js";
 dotenv.config();
-const app = express();
+
 app.use(cookieParser());
 app.use(express.json({ limit: "5mb" })); //to allow parsing limit 5mb by default it is 100KB
 
@@ -18,9 +19,9 @@ app.use(
   })
 );
 app.use("/api/auth", authRouter);
-app.use("/api/message", messageRouter);
+app.use("/api/messages", messageRouter);
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Server is running at port: ${port}`);
   dbConnection();
 });

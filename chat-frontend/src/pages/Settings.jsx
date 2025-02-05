@@ -40,7 +40,7 @@ const Settings = () => {
                 data-theme={t}
               >
                 <div className="absolute inset-0 grid grid-cols-4 gap-px p-1">
-                  <div className="rounded bg-primary"></div>
+                  <div className="rounded bg-primary"> </div>
                   <div className="rounded bg-secondary"></div>
                   <div className="rounded bg-accent"></div>
                   <div className="rounded bg-neutral"></div>

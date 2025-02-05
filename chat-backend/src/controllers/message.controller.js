@@ -1,6 +1,8 @@
+import { getReceiverSocketId } from "../lib/socket.js";
 import Message from "../models/message.model.js";
 import User from "../models/user.model.js";
-
+import { io } from "../lib/socket.js";
+import cloudinary from "../lib/cloudinary.js";
 export const getSidebarUsers = async (req, res) => {
   try {
     const loggedinUserId = await req.user._id;
@@ -19,7 +21,7 @@ export const getSidebarUsers = async (req, res) => {
 
 export const getMessagesByUserId = async (req, res) => {
   try {
-    const userToChatId = req.params;
+    const userToChatId = req.params.id;
     const senderId = req.user._id;
     const messages = await Message.find({
       $or: [
@@ -37,7 +39,8 @@ export const getMessagesByUserId = async (req, res) => {
 export const sendMessage = async (req, res) => {
   try {
     const senderId = req.user._id;
-    const receiverId = req.params;
+    const { id: receiverId } = req.params;
+    console.log("sender ID: ", senderId, "receiver ID: ", receiverId);
     const { image, text } = req.body;
 
     let imageUrl;
@@ -51,7 +54,13 @@ export const sendMessage = async (req, res) => {
       text,
       image: imageUrl,
     });
-
+    await newMessage.save();
+    //Real time Message send if both are online
+    const receiverSocketId = getReceiverSocketId(receiverId); //Getting receiver socket id from
+    console.log("receiver Socket ID: ", receiverSocketId);
+    if (receiverSocketId) {
+      io.to(receiverSocketId).emit("newMessage", newMessage); //Send new message "newMessage" could be name anything
+    }
     return res.status(200).json(newMessage);
   } catch (error) {
     console.log("Error in sendMessage Controller: ", error.message);
