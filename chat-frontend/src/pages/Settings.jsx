@@ -92,7 +92,7 @@ const Settings = () => {
                           }
                         `}
                       >
-                        <p className="text-sm">{message.content}</p>
+                        <p className="text-sm"> {message.content}</p>
                         <p
                           className={`
                             text-[10px] mt-1.5

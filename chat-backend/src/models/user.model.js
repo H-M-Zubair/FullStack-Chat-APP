@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema(
       default: "",
     },
   },
-  { Timestamps: true }
+  { timestamps: true }
 );
 
 userSchema.methods.toJSON = function () {

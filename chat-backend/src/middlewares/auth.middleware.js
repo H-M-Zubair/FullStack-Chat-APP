@@ -28,7 +28,9 @@ export const authMiddleware = async (req, res, next) => {
     if (!user) {
       return res.status(400).json({ message: "User not found" });
     }
+    console.log(user);
     req.user = user;
+
     next();
   } catch (error) {
     console.log("Error in auth-Middleware Protected Route: ", error.message);

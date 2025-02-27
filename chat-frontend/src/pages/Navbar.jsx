@@ -1,9 +1,14 @@
 import { Link } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
 import { LogOut, MessageSquare, Settings, User } from "lucide-react";
-
+import toast from "react-hot-toast";
 const Navbar = () => {
   const { logout, authUser } = useAuthStore();
+  const handleClickSettings = () => {
+    if (!authUser) {
+      toast.error("Please login to access settings");
+    }
+  };
 
   return (
     <header
@@ -27,6 +32,7 @@ const Navbar = () => {
           <div className="flex items-center gap-2">
             <Link
               to={"/settings"}
+              onClick={handleClickSettings}
               className={`
               btn btn-sm gap-2 transition-colors
               
