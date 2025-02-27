@@ -1,4 +1,4 @@
-import { THEMES } from "../../../chat-backend/src/constants";
+import { THEMES } from "../constants";
 
 import { Send } from "lucide-react";
 import { useThemeStore } from "../store/useThemeStore";
